@@ -1,5 +1,0 @@
-﻿ssh-keygen -t rsa -C “snowjacker@126.com”
-cd ~/.ssh
-
-git remote add origin https://github.com/snowjacker/SSHA.git
-git remote add origin https://github.com/snowjacker/myjpa.git

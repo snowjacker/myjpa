@@ -1,0 +1,6 @@
+myjpa\dao\BoardUserDao.class
+myjpa\controller\TestController.class
+myjpa\controller\UserController.class
+myjpa\service\BoardUserService.class
+myjpa\entity\BoardUser.class
+myjpa\util\IntegerEditer.class

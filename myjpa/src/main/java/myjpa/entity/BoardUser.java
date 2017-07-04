@@ -120,25 +120,25 @@ public class BoardUser {
 	}
 
 	private int userId;
-	@NotEmpty(message = "ÓÃ»§Ãû·Ç¿Õ")
+	@NotEmpty(message = "ç”¨æˆ·åéç©º")
 	private String userName;
 	private String userRole;
-	@Max(value = 130, message = "ÄãÕæ³¤ÊÙ,Ç§ÄêµÄÍõ°ËÍòÄêµÄ±î!")
-	@Min(value = 18, message = "¶ÌÃü¹í£¬ÉÏ±²×ÓÃ»ÉÙ¸ÉÈ±µÂÊÂ¶ù£¡")
+	@Max(value = 130, message = "ä½ çœŸé•¿å¯¿,åƒå¹´çš„ç‹å…«ä¸‡å¹´çš„é³–!")
+	@Min(value = 18, message = "çŸ­å‘½é¬¼ï¼Œä¸Šè¾ˆå­æ²¡å°‘å¹²ç¼ºå¾·äº‹å„¿ï¼")
 	private int userAge;
-	@NotEmpty(message = "µØÖ·²»ÄÜÉÙ£¬·½±ã²éË®±í£¡")
-	@Size(min = 6, max = 50, message = "¶Ì²»¹ı16£¬³¤²»¹ı50,×Ô¼º¶Ô±È×Å¿´£¡")
+	@NotEmpty(message = "åœ°å€ä¸èƒ½å°‘ï¼Œæ–¹ä¾¿æŸ¥æ°´è¡¨ï¼")
+	@Size(min = 6, max = 50, message = "çŸ­ä¸è¿‡16ï¼Œé•¿ä¸è¿‡50,è‡ªå·±å¯¹æ¯”ç€çœ‹ï¼")
 	private String userAddress;
-	@NotEmpty(message = "ÊÇÄĞÊÇÅ®£¿ºÃ°²ÅÅÈ¨ÏŞ¹·Ç±¹æÔò£¡£¡£¡")
+	@NotEmpty(message = "æ˜¯ç”·æ˜¯å¥³ï¼Ÿå¥½å®‰æ’æƒé™ç‹—æ½œè§„åˆ™ï¼ï¼ï¼")
 	private String userSex;
-	@Past(message = "À´×ÔÎ´À´µÄÄú£¬Ë¡²»½Ó´ı£¡£¡£¡")
+	@Past(message = "æ¥è‡ªæœªæ¥çš„æ‚¨ï¼Œæ•ä¸æ¥å¾…ï¼ï¼ï¼")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date userBirthday;
-	@NotEmpty(message = "ÄúµÄÓÊÏäÄØ£¿Ã»ÓÊÏäÔõÃ´°²ÀûÄã£¿£¡")
-	@Email(message = "ÄúµÄÓÊÏäÕæºÃ£¬Ë­µÄĞÅÏ¢Ò²½ÓÊÕ²»µ½£¡£¡£¡")
+	@NotEmpty(message = "æ‚¨çš„é‚®ç®±å‘¢ï¼Ÿæ²¡é‚®ç®±æ€ä¹ˆå®‰åˆ©ä½ ï¼Ÿï¼")
+	@Email(message = "æ‚¨çš„é‚®ç®±çœŸå¥½ï¼Œè°çš„ä¿¡æ¯ä¹Ÿæ¥æ”¶ä¸åˆ°ï¼ï¼ï¼")
 	private String userEmail;
-	@NotEmpty(message = "ÕâºÜÖØÒª£¡±ØÌî£¡")
-	@Size(min = 8, max = 20, message = "¶ÌÁË8Î»£¬³¤ÁË20Î»£¬³¬³ö·¶Î§²»¸úÄãÍæ¶ù£¡")
+	@NotEmpty(message = "è¿™å¾ˆé‡è¦ï¼å¿…å¡«ï¼")
+	@Size(min = 8, max = 20, message = "çŸ­äº†8ä½ï¼Œé•¿äº†20ä½ï¼Œè¶…å‡ºèŒƒå›´ä¸è·Ÿä½ ç©å„¿ï¼")
 	private String userPassword;
 
 }

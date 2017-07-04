@@ -10,16 +10,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<mvc:form action="${pageContext.request.contextPath }/user/update" method="put" modelAttribute="user">
+	<mvc:form action="${pageContext.request.contextPath }/user/update" method="post" modelAttribute="user">
 		<!-- 更换提交方法 -->
-		userId:<mvc:hidden path="userId"/>
-		
 		<input type="hidden" name="_method" value="PUT" />
-		
+		userId:<mvc:hidden path="userId"/>
 		name:<mvc:input path="userName" />
 		<font color="red"><mvc:errors path="userName" /></font>
 		<br>  
-		
         password:<mvc:input path="userPassword" />
 		<font color="red"><mvc:errors path="userPassword" /></font>
 		<br>

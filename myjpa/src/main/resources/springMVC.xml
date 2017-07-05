@@ -14,17 +14,6 @@
 	<mvc:default-servlet-handler />
 	<mvc:annotation-driven />
 	<context:component-scan base-package="myjpa.controller" />
-	<!-- 配置自动扫描的包
-	<context:component-scan
-		base-package="myjpa"
-		use-default-filters="false">
-		<context:include-filter
-			type="annotation"
-			expression="org.springframework.stereotype.Controller" />
-		<context:include-filter
-			type="annotation"
-			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
-	</context:component-scan> -->
 	<!-- 配置视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

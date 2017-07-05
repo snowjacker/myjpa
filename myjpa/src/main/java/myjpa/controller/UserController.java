@@ -76,11 +76,6 @@ public class UserController {
 		return "forward:findAll";
 	}
 
-	/*
-	 * @ModelAttribute public BoardUser getUser() { BoardUser user = new
-	 * BoardUser(); return user; }
-	 */
-
 	@RequestMapping(value = "/reg", method = RequestMethod.GET)
 	public String reg(Map<String, Object> map) {
 		BoardUser boardUser = new BoardUser();
@@ -114,7 +109,7 @@ public class UserController {
 		userService.save(user);
 		return "redirect:/user/findAll";
 	}
-
+	
 	@Autowired
 	private BoardUserService userService;
 }

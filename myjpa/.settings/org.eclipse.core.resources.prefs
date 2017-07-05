@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/error.properties=UTF-8
 encoding//src/main/java/myjpa/entity=UTF-8
+encoding//src/main/java/myjpa/service/HardInfoService.java=UTF-8
 encoding//src/main/resources/log4j.properties=UTF-8

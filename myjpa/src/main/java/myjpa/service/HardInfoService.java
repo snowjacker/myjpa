@@ -39,8 +39,11 @@ public class HardInfoService {
 				cpu.setWait(cpuperc.getWait());
 				cpu.setNice(cpuperc.getNice());
 				cpu.setIdle(cpuperc.getIdle());
-				// 单个cpu的使用率
+				// 鍗曚釜cpu鐨勪娇鐢ㄧ巼
 				cpu.setTotal(cpuperc.getCombined());
+				if(cpuList.size()>0){
+					cpuList.clear();
+				}
 				cpuList.add(cpu);
 			}
 		} catch (SigarException e) {
@@ -56,34 +59,45 @@ public class HardInfoService {
 	 */
 	public static List<Disk> diskInfo() {
 		try {
+			if(list.size()>0){
+				list.clear();
+			}
 			fslist = sigar.getFileSystemList();
 			for (int i = 0; i < fslist.length; i++) {
 				Disk disk = new Disk();
 				FileSystem fs = fslist[i];
 				disk.setDiskName(fs.getDevName());
-				FileSystemUsage usage = sigar.getFileSystemUsage(fs
-						.getDirName());
+				FileSystemUsage usage;
+				
+					try {
+						usage = sigar.getFileSystemUsage(fs
+								.getDirName());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						continue;
+					}
+				
 				switch (fs.getType()) {
-				case 0: // TYPE_UNKNOWN ：未知
+				case 0: // TYPE_UNKNOWN 锛氭湭鐭�
 					break;
 				case 1: // TYPE_NONE
 					break;
-				case 2: // TYPE_LOCAL_DISK : 本地硬盘
+				case 2: // TYPE_LOCAL_DISK : 鏈湴纭洏
 					disk.setTotalSize(usage.getTotal());
 					disk.setFreeSize(usage.getFree());
 					disk.setLeftSize(usage.getAvail());
 					disk.setUsedSize(usage.getUsed());
+					list.add(disk);
 					break;
-				case 3:// TYPE_NETWORK ：网络
+				case 3:// TYPE_NETWORK 锛氱綉缁�
 					break;
-				case 4:// TYPE_RAM_DISK ：闪存
+				case 4:// TYPE_RAM_DISK 锛氶棯瀛�
 					break;
-				case 5:// TYPE_CDROM ：光驱
+				case 5:// TYPE_CDROM 锛氬厜椹�
 					break;
-				case 6:// TYPE_SWAP ：页面交换
+				case 6:// TYPE_SWAP 锛氶〉闈氦鎹�
 					break;
-				}
-				list.add(disk);
+				}							
 			}
 		} catch (SigarException e) {
 			// TODO Auto-generated catch block
@@ -127,7 +141,7 @@ public class HardInfoService {
 	}
 
 	private static Sigar sigar = new Sigar();
-	// 虚拟内存对象
+	// 铏氭嫙鍐呭瓨瀵硅薄
 	private static Swap swap = null;
 	// memory
 	private static Mem mem = null;

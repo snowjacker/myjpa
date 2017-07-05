@@ -9,10 +9,10 @@ import myjpa.service.HardInfoService;
 
 public class HardWareTest {
 	public static void main(String[] args) {
-		cpuTest();
-		diskTest();
-		memTest();
-		swapTest();
+		//cpuTest();
+		//diskTest();
+		//memTest();
+		//swapTest();
 	}
 
 	private static void cpuTest() {

@@ -1,6 +1,9 @@
-C:\WORKSPACE\myjpa\src\main\java\myjpa\controller\TestController.java
-C:\WORKSPACE\myjpa\src\main\java\myjpa\util\IntegerEditer.java
-C:\WORKSPACE\myjpa\src\main\java\myjpa\controller\UserController.java
-C:\WORKSPACE\myjpa\src\main\java\myjpa\dao\BoardUserDao.java
-C:\WORKSPACE\myjpa\src\main\java\myjpa\entity\BoardUser.java
-C:\WORKSPACE\myjpa\src\main\java\myjpa\service\BoardUserService.java
+D:\workspace\myjpa\src\main\java\myjpa\dao\BoardUserDao.java
+D:\workspace\myjpa\src\main\java\myjpa\entity\BoardUser.java
+D:\workspace\myjpa\src\main\java\myjpa\controller\HardController.java
+D:\workspace\myjpa\src\main\java\myjpa\entity\Cpu.java
+D:\workspace\myjpa\src\main\java\myjpa\util\IntegerEditer.java
+D:\workspace\myjpa\src\main\java\myjpa\service\HardInfoService.java
+D:\workspace\myjpa\src\main\java\myjpa\controller\UserController.java
+D:\workspace\myjpa\src\main\java\myjpa\entity\Disk.java
+D:\workspace\myjpa\src\main\java\myjpa\service\BoardUserService.java

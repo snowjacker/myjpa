@@ -1,8 +1,11 @@
 package boarduser;
+
+import java.math.BigDecimal;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Map;
 import java.util.Properties;
+
 import org.hyperic.sigar.CpuInfo;
 import org.hyperic.sigar.CpuPerc;
 import org.hyperic.sigar.FileSystem;
@@ -17,260 +20,285 @@ import org.hyperic.sigar.SigarException;
 import org.hyperic.sigar.Swap;
 import org.hyperic.sigar.Who;
 
-public class RuntimeTest {
-    public static void main(String[] args) {
-        try {
-            // Systemä¿¡æ¯ï¼Œä»jvmè·å–
-            //property();
-            //System.out.println("----------------------------------");
-            // cpuä¿¡æ¯
-            cpu();
-            System.out.println("----------------------------------");
-            // å†…å­˜ä¿¡æ¯
-           // memory();
-            //System.out.println("----------------------------------");
-            // æ“ä½œç³»ç»Ÿä¿¡æ¯
-           // os();
-            //System.out.println("----------------------------------");
-            // ç”¨æˆ·ä¿¡æ¯
-           // who();
-           // System.out.println("----------------------------------");
-            // æ–‡ä»¶ç³»ç»Ÿä¿¡æ¯
-           // file();
-           // System.out.println("----------------------------------");
-            // ç½‘ç»œä¿¡æ¯
-           // net();
-           // System.out.println("----------------------------------");
-            // ä»¥å¤ªç½‘ä¿¡æ¯
-           // ethernet();
-           // System.out.println("----------------------------------");
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-    }
 
-    private static void property() throws UnknownHostException {
-        Runtime r = Runtime.getRuntime();
-        Properties props = System.getProperties();
-        InetAddress addr;
-        addr = InetAddress.getLocalHost();
-        String ip = addr.getHostAddress();
-        Map<String, String> map = System.getenv();
-        String userName = map.get("USERNAME");// è·å–ç”¨æˆ·å
-        String computerName = map.get("COMPUTERNAME");// è·å–è®¡ç®—æœºå
-        String userDomain = map.get("USERDOMAIN");// è·å–è®¡ç®—æœºåŸŸå
-        System.out.println("ç”¨æˆ·å:    " + userName);
-        System.out.println("è®¡ç®—æœºå:    " + computerName);
-        System.out.println("è®¡ç®—æœºåŸŸå:    " + userDomain);
-        System.out.println("æœ¬åœ°ipåœ°å€:    " + ip);
-        System.out.println("æœ¬åœ°ä¸»æœºå:    " + addr.getHostName());
-        System.out.println("JVMå¯ä»¥ä½¿ç”¨çš„æ€»å†…å­˜:    " + r.totalMemory());
-        System.out.println("JVMå¯ä»¥ä½¿ç”¨çš„å‰©ä½™å†…å­˜:    " + r.freeMemory());
-        System.out.println("JVMå¯ä»¥ä½¿ç”¨çš„å¤„ç†å™¨ä¸ªæ•°:    " + r.availableProcessors());
-        System.out.println("Javaçš„è¿è¡Œç¯å¢ƒç‰ˆæœ¬ï¼š    " + props.getProperty("java.version"));
-        System.out.println("Javaçš„è¿è¡Œç¯å¢ƒä¾›åº”å•†ï¼š    " + props.getProperty("java.vendor"));
-        System.out.println("Javaä¾›åº”å•†çš„URLï¼š    " + props.getProperty("java.vendor.url"));
-        System.out.println("Javaçš„å®‰è£…è·¯å¾„ï¼š    " + props.getProperty("java.home"));
-        System.out.println("Javaçš„è™šæ‹Ÿæœºè§„èŒƒç‰ˆæœ¬ï¼š    " + props.getProperty("java.vm.specification.version"));
-        System.out.println("Javaçš„è™šæ‹Ÿæœºè§„èŒƒä¾›åº”å•†ï¼š    " + props.getProperty("java.vm.specification.vendor"));
-        System.out.println("Javaçš„è™šæ‹Ÿæœºè§„èŒƒåç§°ï¼š    " + props.getProperty("java.vm.specification.name"));
-        System.out.println("Javaçš„è™šæ‹Ÿæœºå®ç°ç‰ˆæœ¬ï¼š    " + props.getProperty("java.vm.version"));
-        System.out.println("Javaçš„è™šæ‹Ÿæœºå®ç°ä¾›åº”å•†ï¼š    " + props.getProperty("java.vm.vendor"));
-        System.out.println("Javaçš„è™šæ‹Ÿæœºå®ç°åç§°ï¼š    " + props.getProperty("java.vm.name"));
-        System.out.println("Javaè¿è¡Œæ—¶ç¯å¢ƒè§„èŒƒç‰ˆæœ¬ï¼š    " + props.getProperty("java.specification.version"));
-        System.out.println("Javaè¿è¡Œæ—¶ç¯å¢ƒè§„èŒƒä¾›åº”å•†ï¼š    " + props.getProperty("java.specification.vender"));
-        System.out.println("Javaè¿è¡Œæ—¶ç¯å¢ƒè§„èŒƒåç§°ï¼š    " + props.getProperty("java.specification.name"));
-        System.out.println("Javaçš„ç±»æ ¼å¼ç‰ˆæœ¬å·ï¼š    " + props.getProperty("java.class.version"));
-        System.out.println("Javaçš„ç±»è·¯å¾„ï¼š    " + props.getProperty("java.class.path"));
-        System.out.println("åŠ è½½åº“æ—¶æœç´¢çš„è·¯å¾„åˆ—è¡¨ï¼š    " + props.getProperty("java.library.path"));
-        System.out.println("é»˜è®¤çš„ä¸´æ—¶æ–‡ä»¶è·¯å¾„ï¼š    " + props.getProperty("java.io.tmpdir"));
-        System.out.println("ä¸€ä¸ªæˆ–å¤šä¸ªæ‰©å±•ç›®å½•çš„è·¯å¾„ï¼š    " + props.getProperty("java.ext.dirs"));
-        System.out.println("æ“ä½œç³»ç»Ÿçš„åç§°ï¼š    " + props.getProperty("os.name"));
-        System.out.println("æ“ä½œç³»ç»Ÿçš„æ„æ¶ï¼š    " + props.getProperty("os.arch"));
-        System.out.println("æ“ä½œç³»ç»Ÿçš„ç‰ˆæœ¬ï¼š    " + props.getProperty("os.version"));
-        System.out.println("æ–‡ä»¶åˆ†éš”ç¬¦ï¼š    " + props.getProperty("file.separator"));
-        System.out.println("è·¯å¾„åˆ†éš”ç¬¦ï¼š    " + props.getProperty("path.separator"));
-        System.out.println("è¡Œåˆ†éš”ç¬¦ï¼š    " + props.getProperty("line.separator"));
-        System.out.println("ç”¨æˆ·çš„è´¦æˆ·åç§°ï¼š    " + props.getProperty("user.name"));
-        System.out.println("ç”¨æˆ·çš„ä¸»ç›®å½•ï¼š    " + props.getProperty("user.home"));
-        System.out.println("ç”¨æˆ·çš„å½“å‰å·¥ä½œç›®å½•ï¼š    " + props.getProperty("user.dir"));
-    }
-
-    private static void memory() throws SigarException {
-        Sigar sigar = new Sigar();
-        Mem mem = sigar.getMem();
-        // å†…å­˜æ€»é‡
-        System.out.println("å†…å­˜æ€»é‡:    " + mem.getTotal() / 1024L + "K av");
-        // å½“å‰å†…å­˜ä½¿ç”¨é‡
-        System.out.println("å½“å‰å†…å­˜ä½¿ç”¨é‡:    " + mem.getUsed() / 1024L + "K used");
-        // å½“å‰å†…å­˜å‰©ä½™é‡
-        System.out.println("å½“å‰å†…å­˜å‰©ä½™é‡:    " + mem.getFree() / 1024L + "K free");
-        Swap swap = sigar.getSwap();
-        // äº¤æ¢åŒºæ€»é‡
-        System.out.println("äº¤æ¢åŒºæ€»é‡:    " + swap.getTotal() / 1024L + "K av");
-        // å½“å‰äº¤æ¢åŒºä½¿ç”¨é‡
-        System.out.println("å½“å‰äº¤æ¢åŒºä½¿ç”¨é‡:    " + swap.getUsed() / 1024L + "K used");
-        // å½“å‰äº¤æ¢åŒºå‰©ä½™é‡
-        System.out.println("å½“å‰äº¤æ¢åŒºå‰©ä½™é‡:    " + swap.getFree() / 1024L + "K free");
-    }
-
-    private static void cpu() throws SigarException {
-        Sigar sigar = new Sigar();
-        CpuInfo infos[] = sigar.getCpuInfoList();
-        CpuPerc cpuList[] = null;
-        cpuList = sigar.getCpuPercList();
-        for (int i = 0; i < infos.length; i++) {// ä¸ç®¡æ˜¯å•å—CPUè¿˜æ˜¯å¤šCPUéƒ½é€‚ç”¨
-            CpuInfo info = infos[i];
-            System.out.println("ç¬¬" + (i + 1) + "å—CPUä¿¡æ¯");
-            System.out.println("CPUçš„æ€»é‡MHz:    " + info.getMhz());// CPUçš„æ€»é‡MHz
-            System.out.println("CPUç”Ÿäº§å•†:    " + info.getVendor());// è·å¾—CPUçš„å–ä¸»ï¼Œå¦‚ï¼šIntel
-            System.out.println("CPUç±»åˆ«:    " + info.getModel());// è·å¾—CPUçš„ç±»åˆ«ï¼Œå¦‚ï¼šCeleron
-            System.out.println("CPUç¼“å­˜æ•°é‡:    " + info.getCacheSize());// ç¼“å†²å­˜å‚¨å™¨æ•°é‡
-            printCpuPerc(cpuList[i]);
-        }
-    }
-
-    private static void printCpuPerc(CpuPerc cpu) {
-        System.out.println("CPUç”¨æˆ·ä½¿ç”¨ç‡:    " + CpuPerc.format(cpu.getUser()));// ç”¨æˆ·ä½¿ç”¨ç‡
-        System.out.println("CPUç³»ç»Ÿä½¿ç”¨ç‡:    " + CpuPerc.format(cpu.getSys()));// ç³»ç»Ÿä½¿ç”¨ç‡
-        System.out.println("CPUå½“å‰ç­‰å¾…ç‡:    " + CpuPerc.format(cpu.getWait()));// å½“å‰ç­‰å¾…ç‡
-        System.out.println("CPUå½“å‰é”™è¯¯ç‡:    " + CpuPerc.format(cpu.getNice()));//
-        System.out.println("CPUå½“å‰ç©ºé—²ç‡:    " + CpuPerc.format(cpu.getIdle()));// å½“å‰ç©ºé—²ç‡
-        System.out.println("CPUæ€»çš„ä½¿ç”¨ç‡:    " + CpuPerc.format(cpu.getCombined()));// æ€»çš„ä½¿ç”¨ç‡
-    }
-
-    private static void os() {
-        OperatingSystem OS = OperatingSystem.getInstance();
-        // æ“ä½œç³»ç»Ÿå†…æ ¸ç±»å‹å¦‚ï¼š 386ã€486ã€586ç­‰x86
-        System.out.println("æ“ä½œç³»ç»Ÿ:    " + OS.getArch());
-        System.out.println("æ“ä½œç³»ç»ŸCpuEndian():    " + OS.getCpuEndian());//
-        System.out.println("æ“ä½œç³»ç»ŸDataModel():    " + OS.getDataModel());//
-        // ç³»ç»Ÿæè¿°
-        System.out.println("æ“ä½œç³»ç»Ÿçš„æè¿°:    " + OS.getDescription());
-        // æ“ä½œç³»ç»Ÿç±»å‹
-        // System.out.println("OS.getName():    " + OS.getName());
-        // System.out.println("OS.getPatchLevel():    " + OS.getPatchLevel());//
-        // æ“ä½œç³»ç»Ÿçš„å–ä¸»
-        System.out.println("æ“ä½œç³»ç»Ÿçš„å–ä¸»:    " + OS.getVendor());
-        // å–ä¸»åç§°
-        System.out.println("æ“ä½œç³»ç»Ÿçš„å–ä¸»å:    " + OS.getVendorCodeName());
-        // æ“ä½œç³»ç»Ÿåç§°
-        System.out.println("æ“ä½œç³»ç»Ÿåç§°:    " + OS.getVendorName());
-        // æ“ä½œç³»ç»Ÿå–ä¸»ç±»å‹
-        System.out.println("æ“ä½œç³»ç»Ÿå–ä¸»ç±»å‹:    " + OS.getVendorVersion());
-        // æ“ä½œç³»ç»Ÿçš„ç‰ˆæœ¬å·
-        System.out.println("æ“ä½œç³»ç»Ÿçš„ç‰ˆæœ¬å·:    " + OS.getVersion());
-    }
-
-    private static void who() throws SigarException {
-        Sigar sigar = new Sigar();
-        Who who[] = sigar.getWhoList();
-        if (who != null && who.length > 0) {
-            for (int i = 0; i < who.length; i++) {
-                // System.out.println("å½“å‰ç³»ç»Ÿè¿›ç¨‹è¡¨ä¸­çš„ç”¨æˆ·å" + String.valueOf(i));
-                Who _who = who[i];
-                System.out.println("ç”¨æˆ·æ§åˆ¶å°:    " + _who.getDevice());
-                System.out.println("ç”¨æˆ·host:    " + _who.getHost());
-                // System.out.println("getTime():    " + _who.getTime());
-                // å½“å‰ç³»ç»Ÿè¿›ç¨‹è¡¨ä¸­çš„ç”¨æˆ·å
-                System.out.println("å½“å‰ç³»ç»Ÿè¿›ç¨‹è¡¨ä¸­çš„ç”¨æˆ·å:    " + _who.getUser());
-            }
-        }
-    }
-
-    private static void file() throws Exception {
-        Sigar sigar = new Sigar();
-        FileSystem fslist[] = sigar.getFileSystemList();
-        for (int i = 0; i < fslist.length; i++) {
-            System.out.println("åˆ†åŒºçš„ç›˜ç¬¦åç§°" + i);
-            FileSystem fs = fslist[i];
-            // åˆ†åŒºçš„ç›˜ç¬¦åç§°
-            System.out.println("ç›˜ç¬¦åç§°:    " + fs.getDevName());
-            // åˆ†åŒºçš„ç›˜ç¬¦åç§°
-            System.out.println("ç›˜ç¬¦è·¯å¾„:    " + fs.getDirName());
-            System.out.println("ç›˜ç¬¦æ ‡å¿—:    " + fs.getFlags());//
-            // æ–‡ä»¶ç³»ç»Ÿç±»å‹ï¼Œæ¯”å¦‚ FAT32ã€NTFS
-            System.out.println("ç›˜ç¬¦ç±»å‹:    " + fs.getSysTypeName());
-            // æ–‡ä»¶ç³»ç»Ÿç±»å‹åï¼Œæ¯”å¦‚æœ¬åœ°ç¡¬ç›˜ã€å…‰é©±ã€ç½‘ç»œæ–‡ä»¶ç³»ç»Ÿç­‰
-            System.out.println("ç›˜ç¬¦ç±»å‹å:    " + fs.getTypeName());
-            // æ–‡ä»¶ç³»ç»Ÿç±»å‹
-            System.out.println("ç›˜ç¬¦æ–‡ä»¶ç³»ç»Ÿç±»å‹:    " + fs.getType());
-            FileSystemUsage usage = null;
-            usage = sigar.getFileSystemUsage(fs.getDirName());
-            switch (fs.getType()) {
-            case 0: // TYPE_UNKNOWN ï¼šæœªçŸ¥
-                break;
-            case 1: // TYPE_NONE
-                break;
-            case 2: // TYPE_LOCAL_DISK : æœ¬åœ°ç¡¬ç›˜
-                // æ–‡ä»¶ç³»ç»Ÿæ€»å¤§å°
-                System.out.println(fs.getDevName() + "æ€»å¤§å°:    " + usage.getTotal() + "KB");
-                // æ–‡ä»¶ç³»ç»Ÿå‰©ä½™å¤§å°
-                System.out.println(fs.getDevName() + "å‰©ä½™å¤§å°:    " + usage.getFree() + "KB");
-                // æ–‡ä»¶ç³»ç»Ÿå¯ç”¨å¤§å°
-                System.out.println(fs.getDevName() + "å¯ç”¨å¤§å°:    " + usage.getAvail() + "KB");
-                // æ–‡ä»¶ç³»ç»Ÿå·²ç»ä½¿ç”¨é‡
-                System.out.println(fs.getDevName() + "å·²ç»ä½¿ç”¨é‡:    " + usage.getUsed() + "KB");
-                double usePercent = usage.getUsePercent() * 100D;
-                // æ–‡ä»¶ç³»ç»Ÿèµ„æºçš„åˆ©ç”¨ç‡
-                System.out.println(fs.getDevName() + "èµ„æºçš„åˆ©ç”¨ç‡:    " + usePercent + "%");
-                break;
-            case 3:// TYPE_NETWORK ï¼šç½‘ç»œ
-                break;
-            case 4:// TYPE_RAM_DISK ï¼šé—ªå­˜
-                break;
-            case 5:// TYPE_CDROM ï¼šå…‰é©±
-                break;
-            case 6:// TYPE_SWAP ï¼šé¡µé¢äº¤æ¢
-                break;
-            }
-            System.out.println(fs.getDevName() + "è¯»å‡ºï¼š    " + usage.getDiskReads());
-            System.out.println(fs.getDevName() + "å†™å…¥ï¼š    " + usage.getDiskWrites());
-        }
-        return;
-    }
-
-    private static void net() throws Exception {
-        Sigar sigar = new Sigar();
-        String ifNames[] = sigar.getNetInterfaceList();
-        for (int i = 0; i < ifNames.length; i++) {
-            String name = ifNames[i];
-            NetInterfaceConfig ifconfig = sigar.getNetInterfaceConfig(name);
-            System.out.println("ç½‘ç»œè®¾å¤‡å:    " + name);// ç½‘ç»œè®¾å¤‡å
-            System.out.println("IPåœ°å€:    " + ifconfig.getAddress());// IPåœ°å€
-            System.out.println("å­ç½‘æ©ç :    " + ifconfig.getNetmask());// å­ç½‘æ©ç 
-            if ((ifconfig.getFlags() & 1L) <= 0L) {
-                System.out.println("!IFF_UP...skipping getNetInterfaceStat");
-                continue;
-            }
-            NetInterfaceStat ifstat = sigar.getNetInterfaceStat(name);
-            System.out.println(name + "æ¥æ”¶çš„æ€»åŒ…è£¹æ•°:" + ifstat.getRxPackets());// æ¥æ”¶çš„æ€»åŒ…è£¹æ•°
-            System.out.println(name + "å‘é€çš„æ€»åŒ…è£¹æ•°:" + ifstat.getTxPackets());// å‘é€çš„æ€»åŒ…è£¹æ•°
-            System.out.println(name + "æ¥æ”¶åˆ°çš„æ€»å­—èŠ‚æ•°:" + ifstat.getRxBytes());// æ¥æ”¶åˆ°çš„æ€»å­—èŠ‚æ•°
-            System.out.println(name + "å‘é€çš„æ€»å­—èŠ‚æ•°:" + ifstat.getTxBytes());// å‘é€çš„æ€»å­—èŠ‚æ•°
-            System.out.println(name + "æ¥æ”¶åˆ°çš„é”™è¯¯åŒ…æ•°:" + ifstat.getRxErrors());// æ¥æ”¶åˆ°çš„é”™è¯¯åŒ…æ•°
-            System.out.println(name + "å‘é€æ•°æ®åŒ…æ—¶çš„é”™è¯¯æ•°:" + ifstat.getTxErrors());// å‘é€æ•°æ®åŒ…æ—¶çš„é”™è¯¯æ•°
-            System.out.println(name + "æ¥æ”¶æ—¶ä¸¢å¼ƒçš„åŒ…æ•°:" + ifstat.getRxDropped());// æ¥æ”¶æ—¶ä¸¢å¼ƒçš„åŒ…æ•°
-            System.out.println(name + "å‘é€æ—¶ä¸¢å¼ƒçš„åŒ…æ•°:" + ifstat.getTxDropped());// å‘é€æ—¶ä¸¢å¼ƒçš„åŒ…æ•°
-        }
-    }
-
-    private static void ethernet() throws SigarException {
-        Sigar sigar = null;
-        sigar = new Sigar();
-        String[] ifaces = sigar.getNetInterfaceList();
-        for (int i = 0; i < ifaces.length; i++) {
-            NetInterfaceConfig cfg = sigar.getNetInterfaceConfig(ifaces[i]);
-            if (NetFlags.LOOPBACK_ADDRESS.equals(cfg.getAddress()) || (cfg.getFlags() & NetFlags.IFF_LOOPBACK) != 0
-                    || NetFlags.NULL_HWADDR.equals(cfg.getHwaddr())) {
-                continue;
-            }
-            System.out.println(cfg.getName() + "IPåœ°å€:" + cfg.getAddress());// IPåœ°å€
-            System.out.println(cfg.getName() + "ç½‘å…³å¹¿æ’­åœ°å€:" + cfg.getBroadcast());// ç½‘å…³å¹¿æ’­åœ°å€
-            System.out.println(cfg.getName() + "ç½‘å¡MACåœ°å€:" + cfg.getHwaddr());// ç½‘å¡MACåœ°å€
-            System.out.println(cfg.getName() + "å­ç½‘æ©ç :" + cfg.getNetmask());// å­ç½‘æ©ç 
-            System.out.println(cfg.getName() + "ç½‘å¡æè¿°ä¿¡æ¯:" + cfg.getDescription());// ç½‘å¡æè¿°ä¿¡æ¯
-            System.out.println(cfg.getName() + "ç½‘å¡ç±»å‹" + cfg.getType());//
-        }
-    }
-}
+public class RuntimeTest {  
+    public static void main(String[] args) {  
+           
+        try {  
+            //ÔËĞĞÊ±×´Ì¬  
+            // SystemĞÅÏ¢£¬´Ójvm»ñÈ¡  
+            //property();  
+            //System.out.println("----------------------------------");  
+            // cpuĞÅÏ¢  
+            //cpu();  
+            System.out.println("----------------------------------");  
+            // ÄÚ´æĞÅÏ¢  
+            //memory();  
+            //System.out.println("-----------------²Ù×÷ÏµÍ³ĞÅÏ¢ ----------------");  
+            // ²Ù×÷ÏµÍ³ĞÅÏ¢   
+            //os();  
+            //System.out.println("----------------------------------");  
+            // ÓÃ»§ĞÅÏ¢  
+            //who();  
+              
+            System.out.println("----------------ÍøÂçĞÅÏ¢------------");  
+            // ÍøÂçĞÅÏ¢  
+            net();  
+            //System.out.println("---------------ÒÔÌ«ÍøĞÅÏ¢----------------");  
+            // ÒÔÌ«ÍøĞÅÏ¢  
+            //ethernet();  
+           
+            //System.out.println("----------------ÎÄ¼şÏµÍ³ĞÅÏ¢------------------");   
+            file();  
+        } catch (Exception e1) {  
+            e1.printStackTrace();  
+        }  
+    }  
+  
+    private static void property() throws UnknownHostException {  
+        Runtime r = Runtime.getRuntime();  
+        Properties props = System.getProperties();  
+        InetAddress addr;  
+        addr = InetAddress.getLocalHost();  
+        String ip = addr.getHostAddress();  
+        Map<String, String> map = System.getenv();  
+        String userName = map.get("USERNAME");// »ñÈ¡ÓÃ»§Ãû  
+        String computerName = map.get("COMPUTERNAME");// »ñÈ¡¼ÆËã»úÃû  
+        String userDomain = map.get("USERDOMAIN");// »ñÈ¡¼ÆËã»úÓòÃû  
+        System.out.println("ÓÃ»§Ãû:    " + userName);  
+        System.out.println("¼ÆËã»úÃû:   " + computerName);  
+        System.out.println("¼ÆËã»úÓòÃû:  " + userDomain);  
+        System.out.println("±¾µØipµØÖ·: " + ip);  
+        System.out.println("±¾µØÖ÷»úÃû:  " + addr.getHostName());  
+        System.out.println("JVM¿ÉÒÔÊ¹ÓÃµÄ×ÜÄÚ´æ:    " + r.totalMemory());  
+        System.out.println("JVM¿ÉÒÔÊ¹ÓÃµÄÊ£ÓàÄÚ´æ:   " + r.freeMemory());  
+        System.out.println("JVM¿ÉÒÔÊ¹ÓÃµÄ´¦ÀíÆ÷¸öÊı:  " + r.availableProcessors());  
+        System.out.println("JavaµÄÔËĞĞ»·¾³°æ±¾£º    " + props.getProperty("java.version"));  
+        System.out.println("JavaµÄÔËĞĞ»·¾³¹©Ó¦ÉÌ£º   " + props.getProperty("java.vendor"));  
+        System.out.println("Java¹©Ó¦ÉÌµÄURL£º    " + props.getProperty("java.vendor.url"));  
+        System.out.println("JavaµÄ°²×°Â·¾¶£º  " + props.getProperty("java.home"));  
+        System.out.println("JavaµÄĞéÄâ»ú¹æ·¶°æ±¾£º   " + props.getProperty("java.vm.specification.version"));  
+        System.out.println("JavaµÄĞéÄâ»ú¹æ·¶¹©Ó¦ÉÌ£º  " + props.getProperty("java.vm.specification.vendor"));  
+        System.out.println("JavaµÄĞéÄâ»ú¹æ·¶Ãû³Æ£º   " + props.getProperty("java.vm.specification.name"));  
+        System.out.println("JavaµÄĞéÄâ»úÊµÏÖ°æ±¾£º   " + props.getProperty("java.vm.version"));  
+        System.out.println("JavaµÄĞéÄâ»úÊµÏÖ¹©Ó¦ÉÌ£º  " + props.getProperty("java.vm.vendor"));  
+        System.out.println("JavaµÄĞéÄâ»úÊµÏÖÃû³Æ£º   " + props.getProperty("java.vm.name"));  
+        System.out.println("JavaÔËĞĞÊ±»·¾³¹æ·¶°æ±¾£º  " + props.getProperty("java.specification.version"));  
+        System.out.println("JavaÔËĞĞÊ±»·¾³¹æ·¶¹©Ó¦ÉÌ£º " + props.getProperty("java.specification.vender"));  
+        System.out.println("JavaÔËĞĞÊ±»·¾³¹æ·¶Ãû³Æ£º  " + props.getProperty("java.specification.name"));  
+        System.out.println("JavaµÄÀà¸ñÊ½°æ±¾ºÅ£º    " + props.getProperty("java.class.version"));  
+        System.out.println("JavaµÄÀàÂ·¾¶£º   " + props.getProperty("java.class.path"));  
+        System.out.println("¼ÓÔØ¿âÊ±ËÑË÷µÄÂ·¾¶ÁĞ±í£º    " + props.getProperty("java.library.path"));  
+        System.out.println("Ä¬ÈÏµÄÁÙÊ±ÎÄ¼şÂ·¾¶£º  " + props.getProperty("java.io.tmpdir"));  
+        System.out.println("Ò»¸ö»ò¶à¸öÀ©Õ¹Ä¿Â¼µÄÂ·¾¶£º   " + props.getProperty("java.ext.dirs"));  
+        System.out.println("²Ù×÷ÏµÍ³µÄÃû³Æ£º    " + props.getProperty("os.name"));  
+        System.out.println("²Ù×÷ÏµÍ³µÄ¹¹¼Ü£º    " + props.getProperty("os.arch"));  
+        System.out.println("²Ù×÷ÏµÍ³µÄ°æ±¾£º    " + props.getProperty("os.version"));  
+        System.out.println("ÎÄ¼ş·Ö¸ô·û£º  " + props.getProperty("file.separator"));  
+        System.out.println("Â·¾¶·Ö¸ô·û£º  " + props.getProperty("path.separator"));  
+        System.out.println("ĞĞ·Ö¸ô·û£º   " + props.getProperty("line.separator"));  
+        System.out.println("ÓÃ»§µÄÕË»§Ãû³Æ£º    " + props.getProperty("user.name"));  
+        System.out.println("ÓÃ»§µÄÖ÷Ä¿Â¼£º " + props.getProperty("user.home"));  
+        System.out.println("ÓÃ»§µÄµ±Ç°¹¤×÷Ä¿Â¼£º  " + props.getProperty("user.dir"));  
+    }  
+  
+    private static void memory() throws SigarException {  
+        Sigar sigar = new Sigar();  
+        Mem mem = sigar.getMem();  
+        // ÄÚ´æ×ÜÁ¿  
+        System.out.println("ÄÚ´æ×ÜÁ¿:   " + mem.getTotal() / 1024L + "K av");  
+        // µ±Ç°ÄÚ´æÊ¹ÓÃÁ¿  
+        System.out.println("µ±Ç°ÄÚ´æÊ¹ÓÃÁ¿:    " + mem.getUsed() / 1024L + "K used");  
+        // µ±Ç°ÄÚ´æÊ£ÓàÁ¿  
+        System.out.println("µ±Ç°ÄÚ´æÊ£ÓàÁ¿:    " + mem.getFree() / 1024L + "K free");  
+        Swap swap = sigar.getSwap();  
+        // ½»»»Çø×ÜÁ¿  
+        System.out.println("½»»»Çø×ÜÁ¿:  " + swap.getTotal() / 1024L + "K av");  
+        // µ±Ç°½»»»ÇøÊ¹ÓÃÁ¿  
+        System.out.println("µ±Ç°½»»»ÇøÊ¹ÓÃÁ¿:   " + swap.getUsed() / 1024L + "K used");  
+        // µ±Ç°½»»»ÇøÊ£ÓàÁ¿  
+        System.out.println("µ±Ç°½»»»ÇøÊ£ÓàÁ¿:   " + swap.getFree() / 1024L + "K free");  
+    }  
+  
+    private static void cpu() throws SigarException {  
+        Sigar sigar = new Sigar();  
+        CpuInfo infos[] = sigar.getCpuInfoList();  
+        CpuPerc cpuList[] = null;  
+        cpuList = sigar.getCpuPercList();  
+        for (int i = 0; i < infos.length; i++) {// ²»¹ÜÊÇµ¥¿éCPU»¹ÊÇ¶àCPU¶¼ÊÊÓÃ  
+            CpuInfo info = infos[i];  
+            System.out.println("µÚ" + (i + 1) + "¿éCPUĞÅÏ¢");  
+            System.out.println("CPUµÄ×ÜÁ¿MHz:  " + info.getMhz());// CPUµÄ×ÜÁ¿MHz  
+            System.out.println("CPUÉú²úÉÌ: " + info.getVendor());// »ñµÃCPUµÄÂôÖ÷£¬Èç£ºIntel  
+            System.out.println("CPUÀà±ğ:  " + info.getModel());// »ñµÃCPUµÄÀà±ğ£¬Èç£ºCeleron  
+            System.out.println("CPU»º´æÊıÁ¿:    " + info.getCacheSize());// »º³å´æ´¢Æ÷ÊıÁ¿  
+            printCpuPerc(cpuList[i]);  
+        }  
+    }  
+  
+    private static void printCpuPerc(CpuPerc cpu) {  
+        System.out.println("CPUÓÃ»§Ê¹ÓÃÂÊ:   " + CpuPerc.format(cpu.getUser()));// ÓÃ»§Ê¹ÓÃÂÊ  
+        System.out.println("CPUÏµÍ³Ê¹ÓÃÂÊ:   " + CpuPerc.format(cpu.getSys()));// ÏµÍ³Ê¹ÓÃÂÊ  
+        System.out.println("CPUµ±Ç°µÈ´ıÂÊ:   " + CpuPerc.format(cpu.getWait()));// µ±Ç°µÈ´ıÂÊ  
+        System.out.println("CPUµ±Ç°´íÎóÂÊ:   " + CpuPerc.format(cpu.getNice()));//  
+        System.out.println("CPUµ±Ç°¿ÕÏĞÂÊ:   " + CpuPerc.format(cpu.getIdle()));// µ±Ç°¿ÕÏĞÂÊ  
+        System.out.println("CPU×ÜµÄÊ¹ÓÃÂÊ:   " + CpuPerc.format(cpu.getCombined()));// ×ÜµÄÊ¹ÓÃÂÊ  
+    }  
+  
+    private static void os() {  
+        OperatingSystem OS = OperatingSystem.getInstance();  
+        // ²Ù×÷ÏµÍ³ÄÚºËÀàĞÍÈç£º 386¡¢486¡¢586µÈx86  
+        System.out.println("²Ù×÷ÏµÍ³:   " + OS.getArch());  
+        System.out.println("²Ù×÷ÏµÍ³CpuEndian():    " + OS.getCpuEndian());//  
+        System.out.println("²Ù×÷ÏµÍ³DataModel():    " + OS.getDataModel());//  
+        // ÏµÍ³ÃèÊö  
+        System.out.println("²Ù×÷ÏµÍ³µÄÃèÊö:    " + OS.getDescription());  
+        // ²Ù×÷ÏµÍ³ÀàĞÍ  
+        // System.out.println("OS.getName():    " + OS.getName());  
+        // System.out.println("OS.getPatchLevel():  " + OS.getPatchLevel());//  
+        // ²Ù×÷ÏµÍ³µÄÂôÖ÷  
+        System.out.println("²Ù×÷ÏµÍ³µÄÂôÖ÷:    " + OS.getVendor());  
+        // ÂôÖ÷Ãû³Æ  
+        System.out.println("²Ù×÷ÏµÍ³µÄÂôÖ÷Ãû:   " + OS.getVendorCodeName());  
+        // ²Ù×÷ÏµÍ³Ãû³Æ  
+        System.out.println("²Ù×÷ÏµÍ³Ãû³Æ: " + OS.getVendorName());  
+        // ²Ù×÷ÏµÍ³ÂôÖ÷ÀàĞÍ  
+        System.out.println("²Ù×÷ÏµÍ³ÂôÖ÷ÀàĞÍ:   " + OS.getVendorVersion());  
+        // ²Ù×÷ÏµÍ³µÄ°æ±¾ºÅ  
+        System.out.println("²Ù×÷ÏµÍ³µÄ°æ±¾ºÅ:   " + OS.getVersion());  
+    }  
+  
+    private static void who() throws SigarException {  
+        Sigar sigar = new Sigar();  
+        Who who[] = sigar.getWhoList();  
+        if (who != null && who.length > 0) {  
+            for (int i = 0; i < who.length; i++) {  
+                // System.out.println("µ±Ç°ÏµÍ³½ø³Ì±íÖĞµÄÓÃ»§Ãû" + String.valueOf(i));  
+                Who _who = who[i];  
+                System.out.println("ÓÃ»§¿ØÖÆÌ¨:  " + _who.getDevice());  
+                System.out.println("ÓÃ»§host: " + _who.getHost());  
+                // System.out.println("getTime():   " + _who.getTime());  
+                // µ±Ç°ÏµÍ³½ø³Ì±íÖĞµÄÓÃ»§Ãû  
+                System.out.println("µ±Ç°ÏµÍ³½ø³Ì±íÖĞµÄÓÃ»§Ãû:   " + _who.getUser());  
+            }  
+        }  
+    }  
+  
+    private static void file() throws Exception {  
+        Sigar sigar = new Sigar();  
+        FileSystem fslist[] = sigar.getFileSystemList();  
+        for (int i = 0; i < fslist.length; i++) {  
+            System.out.println("·ÖÇøµÄÅÌ·ûÃû³Æ" + i);  
+            FileSystem fs = fslist[i];  
+            // ·ÖÇøµÄÅÌ·ûÃû³Æ  
+            System.out.println("ÅÌ·ûÃû³Æ:   " + fs.getDevName());  
+            // ·ÖÇøµÄÅÌ·ûÃû³Æ  
+            System.out.println("ÅÌ·ûÂ·¾¶:   " + fs.getDirName());  
+            System.out.println("ÅÌ·û±êÖ¾:   " + fs.getFlags());//  
+            // ÎÄ¼şÏµÍ³ÀàĞÍ£¬±ÈÈç FAT32¡¢NTFS  
+            System.out.println("ÅÌ·ûÀàĞÍ:   " + fs.getSysTypeName());  
+            // ÎÄ¼şÏµÍ³ÀàĞÍÃû£¬±ÈÈç±¾µØÓ²ÅÌ¡¢¹âÇı¡¢ÍøÂçÎÄ¼şÏµÍ³µÈ  
+            System.out.println("ÅÌ·ûÀàĞÍÃû:  " + fs.getTypeName());  
+            // ÎÄ¼şÏµÍ³ÀàĞÍ  
+            System.out.println("ÅÌ·ûÎÄ¼şÏµÍ³ÀàĞÍ:   " + fs.getType());  
+            FileSystemUsage usage = null;  
+            String dirName=fs.getDirName();  
+            try{  
+                usage = sigar.getFileSystemUsage(dirName);  
+                switch (fs.getType()) {  
+                case 0: // TYPE_UNKNOWN £ºÎ´Öª  
+                    break;  
+                case 1: // TYPE_NONE  
+                    break;  
+                case 2: // TYPE_LOCAL_DISK : ±¾µØÓ²ÅÌ  
+                    // ÎÄ¼şÏµÍ³×Ü´óĞ¡  
+                    System.out.println(fs.getDevName() + "×Ü´óĞ¡:  " + usage.getTotal() + "KB");  
+                    // ÎÄ¼şÏµÍ³Ê£Óà´óĞ¡  
+                    System.out.println(fs.getDevName() + "Ê£Óà´óĞ¡: " + usage.getFree() + "KB");  
+                    // ÎÄ¼şÏµÍ³¿ÉÓÃ´óĞ¡  
+                    System.out.println(fs.getDevName() + "¿ÉÓÃ´óĞ¡: " + usage.getAvail() + "KB");  
+                    // ÎÄ¼şÏµÍ³ÒÑ¾­Ê¹ÓÃÁ¿  
+                    System.out.println(fs.getDevName() + "ÒÑ¾­Ê¹ÓÃÁ¿:    " + usage.getUsed() + "KB");  
+                    double usePercent = usage.getUsePercent() * 100D;  
+                    // ÎÄ¼şÏµÍ³×ÊÔ´µÄÀûÓÃÂÊ  
+                    System.out.println(fs.getDevName() + "×ÊÔ´µÄÀûÓÃÂÊ:   " + usePercent + "%");  
+                    break;  
+                case 3:// TYPE_NETWORK £ºÍøÂç  
+                    break;  
+                case 4:// TYPE_RAM_DISK £ºÉÁ´æ  
+                    break;  
+                case 5:// TYPE_CDROM £º¹âÇı  
+                    break;  
+                case 6:// TYPE_SWAP £ºÒ³Ãæ½»»»  
+                    break;  
+                }  
+                System.out.println(fs.getDevName() + "¶Á³ö£º   " + usage.getDiskReads());  
+                System.out.println(fs.getDevName() + "Ğ´Èë£º   " + usage.getDiskWrites());  
+                   
+                System.out.println("¶Á/Ğ´±È£º"+getLongDivide(usage.getDiskReads(), usage.getDiskWrites(), 4));  
+            }  
+            catch(SigarException e){  
+                System.out.println("The device is not ready.");  
+            }  
+              
+        }  
+        return;  
+    }  
+    public static Double getLongDivide(Long l1,Long l2,int point){  
+          BigDecimal bd1 = new BigDecimal(l1);  
+          BigDecimal bd2 = new BigDecimal(l2);  
+          BigDecimal bd3 = bd1.divide(bd2,point, BigDecimal.ROUND_HALF_EVEN); //pointÎªĞ¡Êıµãºó¼¸Î»  
+          return bd3.doubleValue();  
+    }  
+  
+    private static void net() throws Exception {  
+        Sigar sigar = new Sigar();  
+        String ifNames[] = sigar.getNetInterfaceList();  
+        for (int i = 0; i < ifNames.length; i++) {  
+              
+            String name = ifNames[i];  
+            NetInterfaceConfig ifconfig = sigar.getNetInterfaceConfig(name);  
+            if("0.0.0.0".equals(ifconfig.getAddress().trim())){  
+                continue;  
+            }  
+            System.out.println("ÍøÂçÉè±¸Ãû:  " + name);// ÍøÂçÉè±¸Ãû  
+            System.out.println("IPµØÖ·:   " + ifconfig.getAddress());// IPµØÖ·  
+            System.out.println("×ÓÍøÑÚÂë:   " + ifconfig.getNetmask());// ×ÓÍøÑÚÂë  
+            if ((ifconfig.getFlags() & 1L) <= 0L) {  
+                System.out.println("!IFF_UP...skipping getNetInterfaceStat");  
+                continue;  
+            }  
+            NetInterfaceStat ifstat = sigar.getNetInterfaceStat(name);  
+            System.out.println(name + "½ÓÊÕµÄ×Ü°ü¹üÊı:" + ifstat.getRxPackets());// ½ÓÊÕµÄ×Ü°ü¹üÊı  
+            System.out.println(name + "·¢ËÍµÄ×Ü°ü¹üÊı:" + ifstat.getTxPackets());// ·¢ËÍµÄ×Ü°ü¹üÊı  
+            System.out.println(name + "½ÓÊÕµ½µÄ×Ü×Ö½ÚÊı:" + ifstat.getRxBytes());// ½ÓÊÕµ½µÄ×Ü×Ö½ÚÊı  
+            System.out.println(name + "·¢ËÍµÄ×Ü×Ö½ÚÊı:" + ifstat.getTxBytes());// ·¢ËÍµÄ×Ü×Ö½ÚÊı  
+            System.out.println(name + "½ÓÊÕµ½µÄ´íÎó°üÊı:" + ifstat.getRxErrors());// ½ÓÊÕµ½µÄ´íÎó°üÊı  
+            System.out.println(name + "·¢ËÍÊı¾İ°üÊ±µÄ´íÎóÊı:" + ifstat.getTxErrors());// ·¢ËÍÊı¾İ°üÊ±µÄ´íÎóÊı  
+            System.out.println(name + "½ÓÊÕÊ±¶ªÆúµÄ°üÊı:" + ifstat.getRxDropped());// ½ÓÊÕÊ±¶ªÆúµÄ°üÊı  
+            System.out.println(name + "·¢ËÍÊ±¶ªÆúµÄ°üÊı:" + ifstat.getTxDropped());// ·¢ËÍÊ±¶ªÆúµÄ°üÊı  
+        }  
+    }  
+  
+    private static void ethernet() throws SigarException {  
+        Sigar sigar = null;  
+        sigar = new Sigar();  
+        String[] ifaces = sigar.getNetInterfaceList();  
+        for (int i = 0; i < ifaces.length; i++) {  
+            NetInterfaceConfig cfg = sigar.getNetInterfaceConfig(ifaces[i]);  
+            if("0.0.0.0".equals(cfg.getAddress())){  
+                continue;  
+            }  
+            if (NetFlags.LOOPBACK_ADDRESS.equals(cfg.getAddress()) || (cfg.getFlags() & NetFlags.IFF_LOOPBACK) != 0  
+                    || NetFlags.NULL_HWADDR.equals(cfg.getHwaddr())) {  
+                continue;  
+            }  
+            System.out.println(cfg.getName() + "IPµØÖ·:" + cfg.getAddress());// IPµØÖ·  
+            System.out.println(cfg.getName() + "Íø¹Ø¹ã²¥µØÖ·:" + cfg.getBroadcast());// Íø¹Ø¹ã²¥µØÖ·  
+            System.out.println(cfg.getName() + "Íø¿¨MACµØÖ·:" + cfg.getHwaddr());// Íø¿¨MACµØÖ·  
+            System.out.println(cfg.getName() + "×ÓÍøÑÚÂë:" + cfg.getNetmask());// ×ÓÍøÑÚÂë  
+            System.out.println(cfg.getName() + "Íø¿¨ÃèÊöĞÅÏ¢:" + cfg.getDescription());// Íø¿¨ÃèÊöĞÅÏ¢  
+            System.out.println(cfg.getName() + "Íø¿¨ÀàĞÍ" + cfg.getType());//  
+        }  
+    }  
+}  

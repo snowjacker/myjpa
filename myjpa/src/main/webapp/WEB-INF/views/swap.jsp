@@ -12,7 +12,7 @@
 		function() {
 			$("#go").click(
 				$.ajax({
-					url : "percpu",
+					url : "swap",
 					type : "get",
 					timeout : 1000,
 					cache : false,

@@ -15,10 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/hard")
 public class HardController {
 	
-	@RequestMapping(value="/cpu")
-	public ModelAndView Cpu(){
+	@RequestMapping(value="/cpus")
+	public ModelAndView getCpus(){
 		List<Cpu> cpus=HardInfoService.CpuInfo();
-		ModelAndView mav=new ModelAndView("cpu");
+		ModelAndView mav=new ModelAndView("cpus");
 		mav.addObject("mav",cpus);
 		return mav;
 	}
@@ -32,7 +32,7 @@ public class HardController {
 
 	@RequestMapping(value = "/memory", method = RequestMethod.GET)
 	public ModelAndView getMemInfo() {
-		Long[] memory = HardInfoService.memInfo();
+		List<Long> memory = HardInfoService.memInfo();
 		ModelAndView mav=new ModelAndView("memory");
 		mav.addObject("mav",memory);
 		return mav;
@@ -40,9 +40,14 @@ public class HardController {
 
 	@RequestMapping(value = "/swap", method = RequestMethod.GET)
 	public ModelAndView getSwap() {
-		Long[] swap = HardInfoService.swapInfo();
+		List<Long> swap = HardInfoService.swapInfo();
 		ModelAndView mav=new ModelAndView("swap");
 		mav.addObject("mav",swap);
 		return mav;
+	}
+	@RequestMapping(value = "/cpu", method = RequestMethod.GET)
+	public double getCpu() {
+		double rate=HardInfoService.getAvangeRate();
+		return rate;
 	}
 }

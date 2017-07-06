@@ -15,14 +15,18 @@ import org.hyperic.sigar.Sigar;
 import org.hyperic.sigar.SigarException;
 import org.hyperic.sigar.Swap;
 import org.springframework.stereotype.Service;
+
 @Service
 public class HardInfoService {
 	/**
 	 * @return the list of cpu
-	 * @description: get the info of a cpu
+	 * @description: get the info of every cpu
 	 * 
 	 */
 	public static List<Cpu> CpuInfo() {
+		if (cpuList.size() > 0) {
+			cpuList.clear();
+		}
 		try {
 			CpuInfo infos[] = sigar.getCpuInfoList();
 			CpuPerc cpuPercs[] = sigar.getCpuPercList();
@@ -41,9 +45,7 @@ public class HardInfoService {
 				cpu.setIdle(cpuperc.getIdle());
 				// 鍗曚釜cpu鐨勪娇鐢ㄧ巼
 				cpu.setTotal(cpuperc.getCombined());
-				if(cpuList.size()>0){
-					cpuList.clear();
-				}
+
 				cpuList.add(cpu);
 			}
 		} catch (SigarException e) {
@@ -59,7 +61,7 @@ public class HardInfoService {
 	 */
 	public static List<Disk> diskInfo() {
 		try {
-			if(list.size()>0){
+			if (list.size() > 0) {
 				list.clear();
 			}
 			fslist = sigar.getFileSystemList();
@@ -68,15 +70,14 @@ public class HardInfoService {
 				FileSystem fs = fslist[i];
 				disk.setDiskName(fs.getDevName());
 				FileSystemUsage usage;
-				
-					try {
-						usage = sigar.getFileSystemUsage(fs
-								.getDirName());
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						continue;
-					}
-				
+
+				try {
+					usage = sigar.getFileSystemUsage(fs.getDirName());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					continue;
+				}
+
 				switch (fs.getType()) {
 				case 0: // TYPE_UNKNOWN 锛氭湭鐭�
 					break;
@@ -97,7 +98,7 @@ public class HardInfoService {
 					break;
 				case 6:// TYPE_SWAP 锛氶〉闈氦鎹�
 					break;
-				}							
+				}
 			}
 		} catch (SigarException e) {
 			// TODO Auto-generated catch block
@@ -110,16 +111,19 @@ public class HardInfoService {
 	 * @return the array of memory
 	 * @description used to get some infomation of a memory
 	 */
-	public static Long[] memInfo() {
+	public static List<Long> memInfo() {
+		if (memInfo.size() > 0) {
+			memInfo.clear();
+		}
 		try {
 			mem = sigar.getMem();
 		} catch (SigarException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		memInfo[0] = mem.getTotal() / 1024L;
-		memInfo[1] = mem.getUsed() / 1024L;
-		memInfo[2] = mem.getFree() / 1024L;
+		memInfo.add(mem.getTotal() / 1024L);
+		memInfo.add(mem.getUsed() / 1024L);
+		memInfo.add(mem.getFree() / 1024L);
 		return memInfo;
 	}
 
@@ -127,17 +131,33 @@ public class HardInfoService {
 	 * @return the array of swap
 	 * @description used to get some infomation of a swap
 	 */
-	public static Long[] swapInfo() {
+	public static List<Long> swapInfo() {
+		if (swapInfo.size() > 0) {
+			swapInfo.clear();
+		}
 		try {
 			swap = sigar.getSwap();
 		} catch (SigarException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		swapInfo[0] = swap.getTotal();
-		swapInfo[1] = swap.getUsed();
-		swapInfo[2] = swap.getFree();
+		swapInfo.add(swap.getTotal());
+		swapInfo.add(swap.getUsed());
+		swapInfo.add(swap.getFree());
 		return swapInfo;
+	}
+	/** 
+	 * @return double
+	 * calculate the  avange useage rate of the cpu 
+	 */
+	public static Double getAvangeRate(){
+		List<Cpu> cpuList=CpuInfo();
+		double total = 0;
+		for (int i = 0; i < cpuList.size(); i++) {
+			total+=cpuList.get(i).getTotal();
+		}
+		cpuRate=total/cpuList.size();
+		return cpuRate;
 	}
 
 	private static Sigar sigar = new Sigar();
@@ -146,13 +166,15 @@ public class HardInfoService {
 	// memory
 	private static Mem mem = null;
 	// memory info
-	private static Long[] memInfo = new Long[3];
+	private static List<Long> memInfo = new ArrayList<Long>();
 	// swap info
-	private static Long[] swapInfo = new Long[3];
+	private static List<Long> swapInfo = new ArrayList<Long>();
 	// list of disk
 	private static List<Disk> list = new ArrayList<Disk>();
-	//list of the file in the disk
+	// list of the file in the disk
 	private static FileSystem[] fslist;
-	//the cpu list
+	// the cpu list
 	private static List<Cpu> cpuList = new ArrayList<Cpu>();
+	//get the avange of the cpu
+	private static double cpuRate;
 }

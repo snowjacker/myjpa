@@ -12,7 +12,7 @@
 		function() {
 			$("#go").click(
 				$.ajax({
-					url : "memory",
+					url : "cpus",
 					type : "get",
 					timeout : 1000,
 					cache : false,

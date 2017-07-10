@@ -8,47 +8,103 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resource/jquery-3.2.1.min.js"></script>
 <script>
-	$().ready(
-		function() {
-			$("#go").click(
-				$.ajax({
-					url : "disk",
-					type : "get",
-					timeout : 1000,
-					cache : false,
-					async : true,
-					
-					success : successfunction(data),
-					error : errorFunction
-				}),
-					function successFunction(data) {
-					var html = "";
-					for (var i = 0; i < data.length; i++) {
-						var ls = data[i];
-						html += "<span>" + ls.user > +"</span>"
-							+ "<span>" + ls.Sys + "</span>"
-							+ "<span>" + ls.wait + "</span>"
-							+ "<span>" + ls.nice + "</span>"
-							+ "<span>" + ls.idle + "</span>"
-							+ "<span>" + ls.total + "</span>";
-					}
-					$("#ulul").html(html);
-
+	$(document).ready(function() {
+		function getdata() {
+			$.ajax({
+				type : "get", //请求方式  
+				url : "http://localhost:8765/myjpa/hard/disk", //地址，就是action请求路径  
+				dataType : "text",
+				success : function(data) {
+					var jsonObj = eval("(" + data + ")");
+					$.each(jsonObj, function(i, item) {
+						alert(item.diskName + "," + item.totalSize + "," + item.usedSize + "," + item.leftSize);
+					});
 				},
-				function errorFunction() {
-					alert("error")
+				error : function(jqXHR) {
+					alert("error:" + jqXHR.status);
 				}
-			)
+			})
 		}
-	)
+		;
+ 
+		setInterval(getdata, 1000);
+		/* 
+		//生成图表
+		var myChart = echarts.init(document.getElementById('main'));
+		
+		// 指定图表的配置项和数据
+
+		option = {
+			tooltip : {
+				trigger : 'item',
+				formatter : "{a} <br/>{b}: {c} ({d}%)"
+			},
+			legend : {
+				orient : 'vertical',
+				x : 'left',
+				data : [ '直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎' ]
+			},
+			series : [
+				{
+					name : '访问来源',
+					type : 'pie',
+					radius : [ '50%', '70%' ],
+					avoidLabelOverlap : false,
+					label : {
+						normal : {
+							show : false,
+							position : 'center'
+						},
+						emphasis : {
+							show : true,
+							textStyle : {
+								fontSize : '30',
+								fontWeight : 'bold'
+							}
+						}
+					},
+					labelLine : {
+						normal : {
+							show : false
+						}
+					},
+					data : [
+						{
+							value : 335,
+							name : '直接访问'
+						},
+						{
+							value : 310,
+							name : '邮件营销'
+						},
+						{
+							value : 234,
+							name : '联盟广告'
+						},
+						{
+							value : 135,
+							name : '视频广告'
+						},
+						{
+							value : 1548,
+							name : '搜索引擎'
+						}
+					]
+				}
+			]
+		};
+
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+		*/
+	}
+	);
 </script>
 </head>
 <body>
 	<div id="body">
 		<input type="button" id="go" value="click">
 		<h1>this is the hard page</h1>
-		<div id="ulul"></div>
-		<h3><font color="red">${mav}</font></h3>
 	</div>
 </body>
 </html>

@@ -8,47 +8,47 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resource/jquery-3.2.1.min.js"></script>
 <script>
-	$().ready(
-		function() {
-			$("#go").click(
-				$.ajax({
-					url : "cpus",
-					type : "get",
-					timeout : 1000,
-					cache : false,
-					async : true,
-					
-					success : successfunction(data),
-					error : errorFunction
-				}),
-					function successFunction(data) {
-					var html = "";
-					for (var i = 0; i < data.length; i++) {
-						var ls = data[i];
-						html += "<span>" + ls.user > +"</span>"
-							+ "<span>" + ls.Sys + "</span>"
-							+ "<span>" + ls.wait + "</span>"
-							+ "<span>" + ls.nice + "</span>"
-							+ "<span>" + ls.idle + "</span>"
-							+ "<span>" + ls.total + "</span>";
-					}
-					$("#ulul").html(html);
-
+	$(document).ready(
+			
+			//处理ajax循环
+			$("#start").click(function(event) {
+				setInterval(getData(),1000)}),
+			
+		//处理ajax请求
+		function getData() {
+			$.ajax({
+				type : "GET",
+				url : "http://localhost:8765/myjpa/hard/cpus",
+				datatype : "json",
+				success : function(data) {
+					 for(var i in data){
+					        var total=data[i].total;
+					      //拿到CPU运行状态的
+					        alert(total);
+					        //追加图表元素
+					        $("#start").append("<div id="+"main"+(i+1)+ "style='width: 600px; height: 400px;'">+"</div>")
+					        //追加数据元素，填充数据
+					        .append("<input type='text'" + "id='data'+"+(i+1)+"value='"+total+"'");
+					         }
 				},
-				function errorFunction() {
-					alert("error")
+				error : function(jqXHR) {
+					alert("error:" + jqXHR.status);
 				}
-			)
+			});
 		}
-	)
+		//生成图表的方法
+		//循环生成图表
+	);
 </script>
 </head>
 <body>
 	<div id="body">
-		<input type="button" id="go" value="click">
+		<input type="button" id="start" value="click">
 		<h1>this is the hard page</h1>
-		<div id="ulul"></div>
-		<h3><font color="red">${mav}</font></h3>
+		<h2 id="ajax"></h2>
+		<div id="main1" style="width: 600px; height: 400px;"></div>
+		<input type="text" id="data1" value="">
+		
 	</div>
 </body>
 </html>

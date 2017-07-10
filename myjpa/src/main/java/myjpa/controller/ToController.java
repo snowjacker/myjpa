@@ -9,4 +9,20 @@ public class ToController {
 	public String toCpu(){
 		return "cpu";
 	}
+	@RequestMapping(value="tocpus")
+	public String toCpus(){
+		return "cpus";
+	}
+	@RequestMapping(value="tpmem")
+	public String toMem(){
+		return "memory";
+	}
+	@RequestMapping(value="toswap")
+	public String toSwap(){
+		return "swap";
+	}
+	@RequestMapping(value="disk")
+	public String toDisk(){
+		return "disk";
+	}
 }

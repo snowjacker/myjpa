@@ -16,37 +16,29 @@ import org.springframework.web.servlet.ModelAndView;
 public class HardController {
 	
 	@RequestMapping(value="/cpus")
-	public ModelAndView getCpus(){
+	public List<Cpu> getCpus(){
 		List<Cpu> cpus=HardInfoService.CpuInfo();
-		ModelAndView mav=new ModelAndView("cpus");
-		mav.addObject("mav",cpus);
-		return mav;
+		return cpus;
 	}
 	@RequestMapping(value = "/disk", method = RequestMethod.GET)
-	public ModelAndView getDiskInfo() {
+	public List<Disk> getDiskInfo() {
 		List<Disk> disk = HardInfoService.diskInfo();
-		ModelAndView mav=new ModelAndView("disk");
-		mav.addObject("mav",disk);
-		return mav;
+		return disk;
 	}
 
 	@RequestMapping(value = "/memory", method = RequestMethod.GET)
-	public ModelAndView getMemInfo() {
+	public List<Long> getMemInfo() {
 		List<Long> memory = HardInfoService.memInfo();
-		ModelAndView mav=new ModelAndView("memory");
-		mav.addObject("mav",memory);
-		return mav;
+		return memory;
 	}
 
 	@RequestMapping(value = "/swap", method = RequestMethod.GET)
-	public ModelAndView getSwap() {
+	public List<Long> getSwap() {
 		List<Long> swap = HardInfoService.swapInfo();
-		ModelAndView mav=new ModelAndView("swap");
-		mav.addObject("mav",swap);
-		return mav;
+		return swap;
 	}
 	@RequestMapping(value = "/cpu", method = RequestMethod.GET)
-	public double getCpu() {
+	public double  getCpu() {
 		double rate=HardInfoService.getAvangeRate();
 		return rate;
 	}

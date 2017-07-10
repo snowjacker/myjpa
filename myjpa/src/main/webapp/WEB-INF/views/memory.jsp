@@ -8,39 +8,7 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resource/jquery-3.2.1.min.js"></script>
 <script>
-	$().ready(
-		function() {
-			$("#go").click(
-				$.ajax({
-					url : "memory",
-					type : "get",
-					timeout : 1000,
-					cache : false,
-					async : true,
-					
-					success : successfunction(data),
-					error : errorFunction
-				}),
-					function successFunction(data) {
-					var html = "";
-					for (var i = 0; i < data.length; i++) {
-						var ls = data[i];
-						html += "<span>" + ls.user > +"</span>"
-							+ "<span>" + ls.Sys + "</span>"
-							+ "<span>" + ls.wait + "</span>"
-							+ "<span>" + ls.nice + "</span>"
-							+ "<span>" + ls.idle + "</span>"
-							+ "<span>" + ls.total + "</span>";
-					}
-					$("#ulul").html(html);
-
-				},
-				function errorFunction() {
-					alert("error")
-				}
-			)
-		}
-	)
+	
 </script>
 </head>
 <body>

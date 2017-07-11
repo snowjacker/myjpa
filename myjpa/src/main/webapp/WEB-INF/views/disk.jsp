@@ -7,104 +7,80 @@
 <title>hardInfo</title>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resource/jquery-3.2.1.min.js"></script>
-<script>
-	$(document).ready(function() {
-		function getdata() {
-			$.ajax({
-				type : "get", //请求方式  
-				url : "http://localhost:8765/myjpa/hard/disk", //地址，就是action请求路径  
-				dataType : "text",
-				success : function(data) {
-					var jsonObj = eval("(" + data + ")");
-					$.each(jsonObj, function(i, item) {
-						alert(item.diskName + "," + item.totalSize + "," + item.usedSize + "," + item.leftSize);
-					});
-				},
-				error : function(jqXHR) {
-					alert("error:" + jqXHR.status);
-				}
-			})
-		}
-		;
- 
-		setInterval(getdata, 1000);
-		/* 
-		//生成图表
-		var myChart = echarts.init(document.getElementById('main'));
-		
-		// 指定图表的配置项和数据
-
-		option = {
-			tooltip : {
-				trigger : 'item',
-				formatter : "{a} <br/>{b}: {c} ({d}%)"
-			},
-			legend : {
-				orient : 'vertical',
-				x : 'left',
-				data : [ '直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎' ]
-			},
-			series : [
-				{
-					name : '访问来源',
-					type : 'pie',
-					radius : [ '50%', '70%' ],
-					avoidLabelOverlap : false,
-					label : {
-						normal : {
-							show : false,
-							position : 'center'
-						},
-						emphasis : {
-							show : true,
-							textStyle : {
-								fontSize : '30',
-								fontWeight : 'bold'
-							}
-						}
-					},
-					labelLine : {
-						normal : {
-							show : false
-						}
-					},
-					data : [
-						{
-							value : 335,
-							name : '直接访问'
-						},
-						{
-							value : 310,
-							name : '邮件营销'
-						},
-						{
-							value : 234,
-							name : '联盟广告'
-						},
-						{
-							value : 135,
-							name : '视频广告'
-						},
-						{
-							value : 1548,
-							name : '搜索引擎'
-						}
-					]
-				}
-			]
-		};
-
-		// 使用刚指定的配置项和数据显示图表。
-		myChart.setOption(option);
-		*/
-	}
-	);
-</script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/resource/echarts.min.js"></script>
 </head>
 <body>
-	<div id="body">
-		<input type="button" id="go" value="click">
-		<h1>this is the hard page</h1>
-	</div>
+	<h5>this is the hard page</h5>
+	<button id="start">查看硬盘使用状态</button>
+	<div id="main" style="width: 600px; height: 400px;"></div>
+	全部：
+	<input id="total" type="text"> 已用：
+	<input id="used" type="text"> 可用：
+	<input id="free" type="text"> 使用率：
+	<input id="rate" type="text">
+	<script>
+		$(document)
+				.ready(
+						function() {
+							var total = "";
+							var used = "";
+							var free = "";
+							function getdata() {
+								$
+										.ajax({
+											type : "get", //请求方式  
+											url : "http://localhost:8765/myjpa/hard/disk", //地址，就是action请求路径  
+											dataType : "json",
+											success : function(msg) {
+												for (var i = 0; i < msg.length; i++) { //循环遍历stuList
+													$("#total").val(msg[0].totalSize);
+													$("#used").val(msg[0].usedSize);
+													$("#free").val(msg[0].freeSize);
+													$("#rate").val(msg[0].usedSize/msg[0].totalSize);
+												}
+											},
+											error : function(jqXHR) {
+												alert("error:" + jqXHR.status);
+											}
+										})
+							}
+							;
+							//生成数据,循环调用
+							setInterval(getdata, 1000);
+							//拿到图表输出目标
+							var myChart = echarts.init(document
+									.getElementById('main'));
+							// 指定图表的配置项和数据
+							var option = {
+								tooltip : {
+									formatter : "{a} <br/>{b} : {c}%"
+								},
+								toolbox : {
+									feature : {
+										restore : {},
+										saveAsImage : {}
+									}
+								},
+								series : [ {
+									name : '硬盘',
+									type : 'gauge',
+									detail : {
+										formatter : '{value}%'
+									},
+									data : [ {
+										value : 50,
+										name : '使用率'
+									} ]
+								} ]
+							};
+							setInterval(function() {
+								option.series[0].data[0].value = parseInt(
+										$('#used').val() / $('#total').val()
+												* 100).toFixed(2);
+								myChart.setOption(option, true);
+							}, 1000);
+						})
+	</script>
 </body>
 </html>

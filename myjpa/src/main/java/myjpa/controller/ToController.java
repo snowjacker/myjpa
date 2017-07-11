@@ -5,24 +5,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ToController {
-	@RequestMapping(value="tocpu")
-	public String toCpu(){
+	@RequestMapping(value = "tocpu")
+	public String toCpu() {
 		return "cpu";
 	}
-	@RequestMapping(value="tocpus")
-	public String toCpus(){
+
+	@RequestMapping(value = "tocpus")
+	public String toCpus() {
 		return "cpus";
 	}
-	@RequestMapping(value="tpmem")
-	public String toMem(){
+
+	@RequestMapping(value = "tomem")
+	public String toMem() {
 		return "memory";
 	}
-	@RequestMapping(value="toswap")
-	public String toSwap(){
+
+	@RequestMapping(value = "toswap")
+	public String toSwap() {
 		return "swap";
 	}
-	@RequestMapping(value="disk")
-	public String toDisk(){
+
+	@RequestMapping(value = "todisk")
+	public String toDisk() {
 		return "disk";
 	}
 }

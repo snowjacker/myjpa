@@ -38,6 +38,28 @@
 												            ]
 												        };
 												        diskArray.push(disk);
+												        var myChart=echarts.init(document.getElementById('main'));
+														 //一个option就是一块空白区，一块空白区的series表示画多少个图，画什么样的图。
+														 //series:[{图1},{图2},……,{图n}]
+														 //图的属性可以自定义，圆心 center: [横坐标,纵坐标] 
+														option = {
+															    title : {
+															        text: '硬盘使用统计',
+															        subtext: '实时数据',
+															        x:'right'
+															    },
+															    tooltip : {
+															        trigger: 'item',
+															        formatter: "{a} <br/>{b} : {c} ({d}%)"
+															    },
+															    legend: {
+															        orient: 'vertical',
+															        left: 'left',
+															        data: ['已用空间','未用空间']
+															    },
+															    series : diskArray,
+															};
+														myChart.setOption(option);
 												}
 											},
 											error : function(jqXHR) {
@@ -48,30 +70,7 @@
 							;
 							//生成数据,循环调用
 							setInterval(getdata, 1000);
-							var myChart=echarts.init(document.getElementById('main'));
-							 //一个option就是一块空白区，一块空白区的series表示画多少个图，画什么样的图。
-							 //series:[{图1},{图2},……,{图n}]
-							 //图的属性可以自定义，圆心 center: [横坐标,纵坐标] 
-							option = {
-								    title : {
-								        text: '硬盘使用统计',
-								        subtext: '实时数据',
-								        x:'right'
-								    },
-								    tooltip : {
-								        trigger: 'item',
-								        formatter: "{a} <br/>{b} : {c} ({d}%)"
-								    },
-								    legend: {
-								        orient: 'vertical',
-								        left: 'left',
-								        data: ['已用空间','未用空间']
-								    },
-								    series : diskArray,
-								};
-							setInterval(function() {
-								myChart.setOption(option);
-							}, 1000);
+							
 						})
 	</script>
 </body>

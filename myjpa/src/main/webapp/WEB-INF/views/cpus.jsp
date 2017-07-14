@@ -25,14 +25,9 @@
 							async : false,
 							dataType : "json",
 							success : function(msg) {
-								/* if(msg!=null){
-									msg.splice(0,msg.length);
-								} */
 								for (var i = 0; i < msg.length; i++) {
 									
-									var rate = msg[i].total;
-									//alert(rate);
-
+									var rate = (msg[i].total*100).toFixed(2);
 									var options = {
 										tooltip : {
 											formatter : "{a} <br/>{b} : {c}%"
@@ -51,16 +46,15 @@
 											},
 											data : [ {
 												value : rate,
-												name : '使用率'
+												name : '线程'+(i+1)+'的使用率'
 											} ]
 										} ]
 									};
 									var res = document
 											.getElementById("main" +i);
-									alert(res);
 									if (!res) {
 										$("#start").after(
-												"<div id=main"+i+ " style=width:600px;height:400px;"+">test"
+												"<div id=main"+i+ " style=width:600px;height:400px;"+">"
 														+ "</div>");
 									}
 									var myChart = echarts.init(document

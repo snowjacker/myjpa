@@ -141,9 +141,9 @@ public class HardInfoService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		swapInfo.add(swap.getTotal());
-		swapInfo.add(swap.getUsed());
-		swapInfo.add(swap.getFree());
+		swapInfo.add(swap.getTotal() / 1024L);
+		swapInfo.add(swap.getUsed() / 1024L);
+		swapInfo.add(swap.getFree() / 1024L);
 		return swapInfo;
 	}
 	/** 

@@ -14,18 +14,11 @@
 	<h5>this is the hard page</h5>
 	<button id="start">查看硬盘使用状态</button>
 	<div id="main" style="width: 600px; height: 400px;"></div>
-	全部：
-	<input id="total" type="text"> 已用：
-	<input id="used" type="text"> 可用：
-	<input id="free" type="text"> 使用率：
-	<input id="rate" type="text">
 	<script>
 		$(document)
 				.ready(
 						function() {
-							var total = "";
-							var used = "";
-							var free = "";
+							var diskArray=new Array();
 							function getdata() {
 								$
 										.ajax({
@@ -34,10 +27,17 @@
 											dataType : "json",
 											success : function(msg) {
 												for (var i = 0; i < msg.length; i++) { //循环遍历stuList
-													$("#total").val(msg[0].totalSize);
-													$("#used").val(msg[0].usedSize);
-													$("#free").val(msg[0].freeSize);
-													$("#rate").val(msg[0].usedSize/msg[0].totalSize);
+													var disk={
+												            name: msg[i].diskName,
+												            type: 'pie',
+												            radius : '50%',
+												            center: ['30%', '33%'],
+												            data:[
+												                {value:msg[i].usedSize / 1024 / 1024, name:'已用空间'},
+												                {value:msg[i].freeSize / 1024 / 1024, name:'未用空间'}
+												            ]
+												        };
+												        diskArray.push(disk);
 												}
 											},
 											error : function(jqXHR) {
@@ -48,37 +48,29 @@
 							;
 							//生成数据,循环调用
 							setInterval(getdata, 1000);
-							//拿到图表输出目标
-							var myChart = echarts.init(document
-									.getElementById('main'));
-							// 指定图表的配置项和数据
-							var option = {
-								tooltip : {
-									formatter : "{a} <br/>{b} : {c}%"
-								},
-								toolbox : {
-									feature : {
-										restore : {},
-										saveAsImage : {}
-									}
-								},
-								series : [ {
-									name : '硬盘',
-									type : 'gauge',
-									detail : {
-										formatter : '{value}%'
-									},
-									data : [ {
-										value : 50,
-										name : '使用率'
-									} ]
-								} ]
-							};
+							var myChart=echarts.init(document.getElementById('main'));
+							 //一个option就是一块空白区，一块空白区的series表示画多少个图，画什么样的图。
+							 //series:[{图1},{图2},……,{图n}]
+							 //图的属性可以自定义，圆心 center: [横坐标,纵坐标] 
+							option = {
+								    title : {
+								        text: '硬盘使用统计',
+								        subtext: '实时数据',
+								        x:'right'
+								    },
+								    tooltip : {
+								        trigger: 'item',
+								        formatter: "{a} <br/>{b} : {c} ({d}%)"
+								    },
+								    legend: {
+								        orient: 'vertical',
+								        left: 'left',
+								        data: ['已用空间','未用空间']
+								    },
+								    series : diskArray,
+								};
 							setInterval(function() {
-								option.series[0].data[0].value = parseInt(
-										$('#used').val() / $('#total').val()
-												* 100).toFixed(2);
-								myChart.setOption(option, true);
+								myChart.setOption(option);
 							}, 1000);
 						})
 	</script>

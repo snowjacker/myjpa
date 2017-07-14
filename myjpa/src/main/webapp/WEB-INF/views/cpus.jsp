@@ -7,48 +7,76 @@
 <title>hardInfo</title>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resource/jquery-3.2.1.min.js"></script>
-<script>
-	$(document).ready(
-			
-			//处理ajax循环
-			$("#start").click(function(event) {
-				setInterval(getData(),1000)}),
-			
-		//处理ajax请求
-		function getData() {
-			$.ajax({
-				type : "GET",
-				url : "http://localhost:8765/myjpa/hard/cpus",
-				datatype : "json",
-				success : function(data) {
-					 for(var i in data){
-					        var total=data[i].total;
-					      //拿到CPU运行状态的
-					        alert(total);
-					        //追加图表元素
-					        $("#start").append("<div id="+"main"+(i+1)+ "style='width: 600px; height: 400px;'">+"</div>")
-					        //追加数据元素，填充数据
-					        .append("<input type='text'" + "id='data'+"+(i+1)+"value='"+total+"'");
-					         }
-				},
-				error : function(jqXHR) {
-					alert("error:" + jqXHR.status);
-				}
-			});
-		}
-		//生成图表的方法
-		//循环生成图表
-	);
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/resource/echarts.min.js">
+	
 </script>
 </head>
-<body>
-	<div id="body">
-		<input type="button" id="start" value="click">
-		<h1>this is the hard page</h1>
-		<h2 id="ajax"></h2>
-		<div id="main1" style="width: 600px; height: 400px;"></div>
-		<input type="text" id="data1" value="">
-		
-	</div>
+<body id="divbody">
+	<h5>this is the hard page</h5>
+	<button id="start">查看CPU状态</button>
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					function getdata() {
+						$.ajax({
+							type : "get", //请求方式  
+							url : "http://localhost:8765/myjpa/hard/cpus", //地址，就是action请求路径 
+							async : false,
+							dataType : "json",
+							success : function(msg) {
+								/* if(msg!=null){
+									msg.splice(0,msg.length);
+								} */
+								for (var i = 0; i < msg.length; i++) {
+									
+									var rate = msg[i].total;
+									//alert(rate);
+
+									var options = {
+										tooltip : {
+											formatter : "{a} <br/>{b} : {c}%"
+										},
+										toolbox : {
+											feature : {
+												restore : {},
+												saveAsImage : {}
+											}
+										},
+										series : [ {
+											name : 'CPU',
+											type : 'gauge',
+											detail : {
+												formatter : '{value}%'
+											},
+											data : [ {
+												value : rate,
+												name : '使用率'
+											} ]
+										} ]
+									};
+									var res = document
+											.getElementById("main" +i);
+									alert(res);
+									if (!res) {
+										$("#start").after(
+												"<div id=main"+i+ " style=width:600px;height:400px;"+">test"
+														+ "</div>");
+									}
+									var myChart = echarts.init(document
+											.getElementById('main' + i));
+									myChart.setOption(options);
+								}
+							},
+							error : function(jqXHR) {
+								alert("error:" + jqXHR.status);
+							}
+						})
+					}
+					;
+					setInterval(getdata, 1000);
+				})
+	</script>
+
 </body>
 </html>

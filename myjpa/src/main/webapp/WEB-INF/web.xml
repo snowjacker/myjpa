@@ -1,26 +1,28 @@
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<web-app
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
-  <display-name>myjpa</display-name>
-  <listener>
+	<display-name>myjpa</display-name>
+	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
+	
 	<servlet>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<!--spingMVC的配置路径-->
+			<!--spingMVC的配置路径 -->
 			<param-value>classpath:springMVC.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<!--拦截设置:拦截所有请求-->
+	<!--拦截设置:拦截所有请求 -->
 	<servlet-mapping>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
@@ -46,34 +48,31 @@
 		<filter-name>HiddenHttpMethodFilter</filter-name>
 		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
 	</filter>
-	
 	<filter-mapping>
 		<filter-name>HiddenHttpMethodFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
 	<!-- 配置 OpenEntityManagerInViewFilter. 可以解决懒加载异常的问题 -->
 	<filter>
 		<filter-name>OpenEntityManagerInViewFilter</filter-name>
 		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
 	</filter>
-	
 	<filter-mapping>
 		<filter-name>OpenEntityManagerInViewFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<!-- 添加日志 -->
-	<context-param>      
-       <param-name>log4jConfigLocation</param-name>      
-       <param-value>classpath:log4j.properties</param-value>      
-   </context-param>  
-   <!--启动一个watchdog线程每1800秒扫描一下log4j配置文件的变化-->  
-   <context-param>      
-       <param-name>log4jRefreshInterval</param-name>      
-       <param-value>1800000</param-value>      
-   </context-param>   
-   <!--spring log4j监听器-->  
-   <listener>      
-       <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>      
-   </listener>  
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>classpath:log4j.properties</param-value>
+	</context-param>
+	<!--启动一个watchdog线程每1800秒扫描一下log4j配置文件的变化 -->
+	<context-param>
+		<param-name>log4jRefreshInterval</param-name>
+		<param-value>1800000</param-value>
+	</context-param>
+	<!--spring log4j监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
 </web-app>

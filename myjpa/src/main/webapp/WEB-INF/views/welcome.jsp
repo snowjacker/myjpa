@@ -3,11 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="mvc" uri="http://www.springframework.org/tags/form"%>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>All the user are below</title>
-</head>
+
 <body>
 	<%-- <h1>登陆成功，欢迎:${userName}</h1> --%>
 	<br>
@@ -41,5 +37,3 @@
 			</tr>
 		</c:forEach>
 	</table>
-</body>
-</html>

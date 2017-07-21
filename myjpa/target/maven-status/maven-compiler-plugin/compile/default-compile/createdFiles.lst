@@ -2,6 +2,7 @@ myjpa\service\HardInfoService.class
 myjpa\dao\BoardUserDao.class
 myjpa\controller\HardController.class
 myjpa\entity\BoardUser.class
+myjpa\util\RuntimeTest.class
 myjpa\controller\UserController.class
 myjpa\service\BoardUserService.class
 myjpa\controller\ToController.class

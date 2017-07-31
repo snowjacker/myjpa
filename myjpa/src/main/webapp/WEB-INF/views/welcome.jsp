@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="mvc" uri="http://www.springframework.org/tags/form"%>
 
-<body>
 	<%-- <h1>登陆成功，欢迎:${userName}</h1> --%>
 	<br>
 	<h1>this is all the user</h1>

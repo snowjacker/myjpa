@@ -1,0 +1,16 @@
+<div ng-controller="findAll">
+    <input type="text" ng-model="less">
+    <table>
+        <tr style="{{$even?'background-color: #f1f1f1':''}}" ng-repeat="user in users | filter:less | orderBy : 'userName'">
+            <td>{{ $index + 1 }}</td>
+            <td>{{user.userName}}</td>
+            <td>{{user.userRole}}</td>
+            <td>{{user.userAddress}}</td>
+            <td>{{user.userAge}}</td>
+            <td>{{user.userSex}}</td>
+            <td>{{user.userBirthday |date:"yyyy-MM-dd"}}</td>
+            <td>{{user.userEmail}}</td>
+            <td>{{user.userPassword}}</td>
+        </tr>
+    </table>
+</div>

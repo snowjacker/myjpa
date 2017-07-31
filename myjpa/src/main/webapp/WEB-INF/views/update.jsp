@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="mvc" uri="http://www.springframework.org/tags/form"%>
-<body>
+
 	<mvc:form action="${pageContext.request.contextPath }/user/update" method="post" modelAttribute="user">
 		<!-- 更换提交方法 -->
 		<input type="hidden" name="_method" value="PUT" />
@@ -34,4 +34,3 @@
 		<br>
 		<input type="submit" value="修改">
 	</mvc:form>
-</body>

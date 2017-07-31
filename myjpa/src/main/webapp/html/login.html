@@ -1,0 +1,26 @@
+<h1>this is the login.html</h1>
+<form ng-app="login" ng-controller="login" name="logForm" novalidate>
+	<p>
+		用户名:<br> <input type="text" name="userName" ng-model="userName"
+			placeholder="用户名" required> <span style="color: red"
+			ng-show="logForm.userName.$dirty && logForm.userName.$invalid">
+			<span ng-show="logForm.userName.$error.required">用户名是必须的。</span>
+		</span>
+	</p>
+	<p>
+		密码:<br> <input type="password" name="userPassword"
+			placeholder="密码" ng-model="userPassword" required> <span
+			style="color: red"
+			ng-show="logForm.userPassword.$dirty && logForm.userPassword.$invalid"></span>
+		<span ng-show="logForm.userPassword.$error.required">密码是必须的。</span>
+	</p>
+	<p>
+		<input type="button" value="登陆"
+			ng-disabled="logForm.userName.$dirty && logForm.userName.$invalid ||  
+	logForm.userPassword.$dirty && logForm.userPassword.$invalid"
+			ng-click="submit()">
+	</p>
+</form>
+<script>
+	var login = angular.module("login", []);
+</script>

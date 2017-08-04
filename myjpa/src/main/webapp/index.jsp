@@ -11,11 +11,10 @@
 	src="${pageContext.request.contextPath }/resource/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/resource/echarts.min.js"></script>
-<script type="text/javascript" src="resource/angular.min.js"></script>
-<script type="text/javascript" src="resource/angular-animate.min.js"></script>
-<script type="text/javascript" src="resource/angular-route.min.js"></script>
-<script type="text/javascript" src="resource/js/app.js"></script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath }/resource/angular.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resource/angular-animate.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resource/angular-route.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resource/js/app.js"></script>
 </head>
 <body ng-app="myApp">
 	<h2>Hello World!</h2>

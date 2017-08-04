@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class JsonUser {
 	@Autowired
 	private BoardUserService userService;
-	@RequestMapping(value="/login",method=RequestMethod.GET)
+	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public BoardUser login(@RequestBody BoardUser user){
 		user=userService.findByUserNameAndUserPassword(user.getUserName(),user.getUserPassword());
 		if(user==null){
@@ -31,5 +32,9 @@ public class JsonUser {
 		map.put("users", users);
 		return users;
 	}
-	
+	@RequestMapping(value="findOne")
+	public BoardUser findOne(@RequestParam int userId){
+		BoardUser user=userService.findById(userId);
+		return user;
+	}
 }

@@ -1,26 +1,32 @@
 <h1>this is the login.html</h1>
-<form ng-app="login" ng-controller="login" name="logForm" novalidate>
+<form ng-controller="login" name="myForm" novalidate>
+
 	<p>
-		用户名:<br> <input type="text" name="userName" ng-model="userName"
-			placeholder="用户名" required> <span style="color: red"
-			ng-show="logForm.userName.$dirty && logForm.userName.$invalid">
-			<span ng-show="logForm.userName.$error.required">用户名是必须的。</span>
+		用户名:<br> <input type="text" name="userName"
+			ng-model="user.userName" required ng-minlength="2" ng-maxlength="8"
+			ng-pattern="/^[a-zA-Z0-9]{3,8}$/" /> <span style="color: red"
+			ng-show="myForm.userName.$dirty && myForm.userName.$invalid">
+			<span ng-show="myForm.userName.$error.required">用户名是必须的。</span> <span
+			ng-show="myForm.userName.$error.minlength">最短2位。</span> <span
+			ng-show="myForm.userName.$error.maxlength">最长8位。</span> <span
+			ng-show="myForm.userName.$error.pattern">仅限字母、数字。</span>
 		</span>
 	</p>
+
 	<p>
 		密码:<br> <input type="password" name="userPassword"
-			placeholder="密码" ng-model="userPassword" required> <span
+			ng-model="user.userPassword" required> <span
 			style="color: red"
-			ng-show="logForm.userPassword.$dirty && logForm.userPassword.$invalid"></span>
-		<span ng-show="logForm.userPassword.$error.required">密码是必须的。</span>
+			ng-show="myForm.userPassword.$dirty && myForm.userPassword.$invalid">
+			<span ng-show="myForm.userPassword.$error.required">密码是必须的。</span>
+		</span>
 	</p>
+
 	<p>
-		<input type="button" value="登陆"
-			ng-disabled="logForm.userName.$dirty && logForm.userName.$invalid ||  
-	logForm.userPassword.$dirty && logForm.userPassword.$invalid"
-			ng-click="submit()">
+		<input type="button"
+			ng-disabled="myForm.userName.$dirty && myForm.userPassword.$invalid ||
+myForm.email.$dirty && myForm.email.$invalid"
+			ng-click="login()" value="登陆" />
 	</p>
+
 </form>
-<script>
-	var login = angular.module("login", []);
-</script>

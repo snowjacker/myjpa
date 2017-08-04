@@ -1,4 +1,4 @@
-var myApp=angular.module("myApp",["userModule","ngRoute","ngAnimate"]);
+var myApp=angular.module("myApp",["userModule","hardModule","ngRoute","ngAnimate"]);
 myApp.config(function ($routeProvider) {
     $routeProvider
         .when('/findAll',{
@@ -6,9 +6,30 @@ myApp.config(function ($routeProvider) {
             controller:"findAll"
         })
          .when('/login',{
-            templateUrl:'html/login.html'
+            templateUrl:'html/login.html',
+            controller:"login"
+        })
+         .when('/cpu',{
+            templateUrl:'html/cpu.html',
+            controller:"cpu"
+        })
+         .when('/cpus',{
+            templateUrl:'html/cpus.html',
+            controller:"cpus"
+        })
+         .when('/disk',{
+            templateUrl:'html/disk.html',
+            controller:"disk"
+        })
+         .when('/memory',{
+            templateUrl:'html/memory.html',
+            controller:"memory"
+        })
+         .when('/swap',{
+            templateUrl:'html/swap.html',
+            controller:"swap"
         })
         .otherwise({
-            redirectTo:'/findAll'
+            redirectTo:'/login'
         })
 });

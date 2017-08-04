@@ -8,7 +8,7 @@ $(document)
 											$
 													.ajax({
 														type : "get", // 请求方式
-														url : "http://localhost:8765/myjpa/hard/swap", // 地址，就是action请求路径
+														url : "hard/swap", // 地址，就是action请求路径
 														dataType : "json",
 														success : function(msg) {
 															$("#total")

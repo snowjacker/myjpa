@@ -6,7 +6,7 @@ $(document).ready(function() {
 		function getdata() {
 			$.ajax({
 				type : "get", // 请求方式
-				url : "http://localhost:8765/myjpa/hard/disk", // 地址，就是action请求路径
+				url : "hard/disk", // 地址，就是action请求路径
 				dataType : "json",
 				success : function(msg) {
 					for (var i = 0; i < msg.length; i++) {

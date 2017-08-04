@@ -6,5 +6,5 @@
 	全部：<input id="total" type="text">M<br>
 	已用：<input id="used" type="text">M<br>
 	可用：<input id="free" type="text">M<br>
-	<script type="text/javascript" src="resource/js/memory.js"></script>
+	<script type="text/javascript" src="resource/js/swap.js"></script>
 	

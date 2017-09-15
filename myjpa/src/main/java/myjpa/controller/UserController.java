@@ -11,6 +11,7 @@ import myjpa.util.IntegerEditer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	@Autowired
+	private BoardUserService userService;
 	@InitBinder
 	public void Binder(ServletRequestDataBinder srdb) {
 		srdb.registerCustomEditor(Date.class, new CustomDateEditor(
@@ -110,7 +113,20 @@ public class UserController {
 		userService.save(user);
 		return "redirect:/user/findAll";
 	}
-	
-	@Autowired
-	private BoardUserService userService;
+	@RequestMapping("/pageAll")
+	public String pageAll(@RequestParam(required=false,defaultValue="1")String pageNumberStr,Map<String,Object> map){
+			int pageNumber = 1;
+			try {
+				pageNumber=Integer.parseInt(pageNumberStr);
+				if(pageNumber<1){
+					pageNumber=1;
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			Page<BoardUser> page=userService.getPage(pageNumber, 5);
+			map.put("page",page);
+		return "page/pageAll";
+	}
+
 }

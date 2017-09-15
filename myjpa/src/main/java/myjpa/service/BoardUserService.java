@@ -5,6 +5,7 @@ import java.util.List;
 import myjpa.dao.BoardUserDao;
 import myjpa.entity.BoardUser;
 
+import org.hibernate.type.TrueFalseType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BoardUserService {
+	@Autowired
+	private BoardUserDao boardUserDao;
 	@Transactional
 	public void delete(Integer id) {
 		boardUserDao.delete(id);
@@ -55,7 +58,11 @@ public class BoardUserService {
 	public void save(BoardUser boardUser) {
 		boardUserDao.saveAndFlush(boardUser);
 	}
-
-	@Autowired
-	private BoardUserDao boardUserDao;
+	@Transactional(readOnly=true)
+	public Page<BoardUser> pageUser(int pageNumber,int pageSize){
+		PageRequest pageAblePageRequest=new PageRequest(pageNumber-1, pageSize);
+		return boardUserDao.findAll(pageAblePageRequest);
+	}
+	
+	
 }
